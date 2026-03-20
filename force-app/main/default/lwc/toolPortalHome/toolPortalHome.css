@@ -1,0 +1,39 @@
+.container{
+    height:100vh;
+    background: linear-gradient(120deg,#022b44,#0a5c7a,#118ab2);
+    color:white;
+}
+
+/* Navbar */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.nav-buttons lightning-button{
+    margin-left:10px;
+}
+
+/* Hero section */
+
+.hero{
+    text-align:center;
+    margin-top:150px;
+}
+
+.hero h1{
+    font-size:60px;
+    letter-spacing:8px;
+}
+
+.hero p{
+    font-size:18px;
+}

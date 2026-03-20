@@ -1,0 +1,105 @@
+<template>
+  <div class="page">
+
+    <!-- ── Student Header ── -->
+    <div class="student-header">
+      <div class="header-info">
+        <div class="header-item">
+          <span class="hlabel">Application Number</span>
+          <span class="hvalue">{applicationNumber}</span>
+        </div>
+        <div class="divider"></div>
+        <div class="header-item">
+          <span class="hlabel">Student Name</span>
+          <span class="hvalue">{studentName}</span>
+        </div>
+        <template if:true={showActions}>
+          <div class="divider"></div>
+          <div class="header-item">
+            <span class="hlabel">Staff</span>
+            <span class="hvalue staff-badge">🔐 {loggedInUser}</span>
+          </div>
+        </template>
+        <template if:false={showActions}>
+          <div class="divider"></div>
+          <div class="header-item">
+            <span class="hvalue guest-badge">👤 Guest</span>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- ── Requests Card ── -->
+    <div class="card">
+      <h3>Tool Request History</h3>
+
+      <!-- Loading -->
+      <template if:true={isLoading}>
+        <div class="loading-wrap">
+          <div class="spinner"></div>
+          <p>Loading requests...</p>
+        </div>
+      </template>
+
+      <!-- Records -->
+      <template if:false={isLoading}>
+        <template if:true={hasRequests}>
+          <div class="table-wrap">
+            <table class="req-table">
+              <thead>
+                <tr>
+                  <th>Request No.</th>
+                  <th>Tool Name</th>
+                  <th>Quantity</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <template if:true={showActions}>
+                    <th>Action</th>
+                  </template>
+                </tr>
+              </thead>
+              <tbody>
+                <template for:each={requests} for:item="req">
+                  <tr key={req.Id}>
+                    <td class="mono">{req.Name}</td>
+                    <td>{req.toolName}</td>
+                    <td class="center">{req.Quantity_Requested__c}</td>
+                    <td>{req.Requested_Date__c}</td>
+                    <td>
+                      <span class={req.statusClass}>{req.statusDisplay}</span>
+                    </td>
+                    <template if:true={showActions}>
+                      <td class="action-cell">
+                        <!-- Pending: show both -->
+                        <template if:true={req.isPending}>
+                          <button class="btn-approve" data-id={req.Id} onclick={handleApprove}>Approve</button>
+                          <button class="btn-reject" data-id={req.Id} onclick={handleReject}>Reject</button>
+                        </template>
+                        <!-- Approved: show only Reject -->
+                        <template if:true={req.isApproved}>
+                          <button class="btn-reject" data-id={req.Id} onclick={handleReject}>Reject</button>
+                        </template>
+                        <!-- Rejected: show only Approve -->
+                        <template if:true={req.isRejected}>
+                          <button class="btn-approve" data-id={req.Id} onclick={handleApprove}>Approve</button>
+                        </template>
+                      </td>
+                    </template>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </template>
+
+        <template if:false={hasRequests}>
+          <div class="empty-state">
+            <span class="empty-icon">📋</span>
+            <p>No tool requests found for this student.</p>
+          </div>
+        </template>
+      </template>
+    </div>
+
+  </div>
+</template>

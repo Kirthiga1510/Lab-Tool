@@ -1,0 +1,41 @@
+<template>
+
+<lightning-card title="Lab Incharge Approval">
+
+<template for:each={requests} for:item="req">
+
+<div key={req.Id} class="box">
+
+<p><b>Application Number:</b> {req.Student__r.Application_Number__c}</p>
+
+<p><b>Student:</b> {req.Student__r.Name}</p>
+
+<p><b>Tool:</b> {req.Tool__r.Name}</p>
+
+<p><b>Quantity:</b> {req.Quantity_Requested__c}</p>
+
+<p><b>Status:</b> {req.Status__c}</p>
+
+<p><b>Date:</b> {req.Requested_Date__c}</p>
+
+<lightning-button
+label="Approve"
+variant="brand"
+data-id={req.Id}
+onclick={approve}>
+</lightning-button>
+
+<lightning-button
+label="Reject"
+variant="destructive"
+data-id={req.Id}
+onclick={reject}>
+</lightning-button>
+
+</div>
+
+</template>
+
+</lightning-card>
+
+</template>

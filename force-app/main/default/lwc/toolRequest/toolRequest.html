@@ -1,0 +1,59 @@
+<template>
+
+<div class="page">
+
+<div class="form-card">
+
+<h2>Tool Request Form</h2>
+
+<p><b>Application Number:</b> {applicationNumber}</p>
+
+<label>Request Date</label>
+<input type="date"
+       value={requestDate}/>
+
+<div class="tool-container">
+
+<template for:each={tools} for:item="tool">
+
+<div key={tool.id} class="tool-box">
+
+<label>
+
+<input type="checkbox"
+       data-id={tool.id}
+       onchange={handleToolSelect}/>
+
+{tool.name}
+
+</label>
+
+<p>Available: {tool.available}</p>
+
+<input type="number"
+       placeholder="Enter Quantity"
+       data-id={tool.id}
+       onchange={handleQuantityChange}/>
+
+</div>
+
+</template>
+
+</div>
+
+<button onclick={handleSubmit} class="submit-btn">
+
+Submit Request
+
+</button>
+
+</div>
+
+
+<!-- Request History -->
+
+
+
+</div>
+
+</template>

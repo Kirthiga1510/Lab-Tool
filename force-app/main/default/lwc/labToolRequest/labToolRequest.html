@@ -1,0 +1,33 @@
+<template>
+
+<lightning-card title="Lab Tool Request">
+
+<div class="slds-p-around_medium">
+
+<lightning-input
+label="Student Id"
+onchange={handleStudent}>
+</lightning-input>
+
+<lightning-input
+label="Tool Id"
+onchange={handleTool}>
+</lightning-input>
+
+<lightning-input
+label="Quantity"
+type="number"
+onchange={handleQuantity}>
+</lightning-input>
+
+<lightning-button
+label="Submit Request"
+variant="brand"
+onclick={createRequest}>
+</lightning-button>
+
+</div>
+
+</lightning-card>
+
+</template>

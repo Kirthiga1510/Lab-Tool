@@ -1,0 +1,94 @@
+<template>
+    <div class="page">
+
+        <!-- ── Page Header ── -->
+        <div class="page-header">
+            <h1>Tool Request Form</h1>
+            <div class="header-meta">
+                <span class="meta-item">
+                    <span class="meta-label">Application No.</span>
+                    <span class="meta-value">{applicationNumber}</span>
+                </span>
+                <span class="meta-divider">|</span>
+                <span class="meta-item">
+                    <span class="meta-label">Date</span>
+                    <span class="meta-value">{requestDate}</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- ── Tool Selection Card ── -->
+        <div class="card">
+            <h2>Select Tools</h2>
+
+            <div class="tool-grid">
+                <template for:each={tools} for:item="tool">
+                    <div key={tool.id} class="tool-box">
+                        <div class="tool-header">
+                            <label class="tool-label">
+                                <input type="checkbox" class="tool-check" data-id={tool.id}
+                                    onchange={handleToolSelect} />
+                                <span class="tool-name">{tool.name}</span>
+                            </label>
+                            <span class="avail-badge">Avail: {tool.available}</span>
+                        </div>
+
+                        <template if:true={tool.selected}>
+                            <div class="qty-row">
+                                <label class="qty-label">Quantity</label>
+                                <input type="number" class="qty-input" min="1" placeholder="Enter qty" data-id={tool.id}
+                                    onchange={handleQuantityChange} />
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <button class="submit-btn" onclick={handleSubmit}>
+                ✅ Submit Request
+            </button>
+        </div>
+
+        <!-- ── Request History Card ── -->
+        <div class="card">
+            <h2>My Request History</h2>
+
+            <template if:true={hasHistory}>
+                <div class="table-wrap">
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>Request No.</th>
+                                <th>Tool</th>
+                                <th>Qty</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={requestHistory} for:item="row">
+                                <tr key={row.Id}>
+                                    <td class="mono">{row.Name}</td>
+                                    <td>{row.ToolName}</td>
+                                    <td class="center">{row.Quantity_Requested__c}</td>
+                                    <td>{row.Requested_Date__c}</td>
+                                    <td>
+                                        <span class={row.statusBadge}>{row.Status__c}</span>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:false={hasHistory}>
+                <div class="empty-state">
+                    <span class="empty-icon">📋</span>
+                    <p>No requests yet. Submit your first tool request above.</p>
+                </div>
+            </template>
+        </div>
+
+    </div>
+</template>

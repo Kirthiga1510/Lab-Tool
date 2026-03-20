@@ -1,0 +1,219 @@
+.page {
+  min-height: 100vh;
+  background: #f0f4f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-bottom: 40px;
+}
+
+/* ── Student Header ── */
+.student-header {
+  background: linear-gradient(135deg, #1a3c5e 0%, #2d6a9f 100%);
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.header-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.header-item:first-child { padding-left: 0; }
+
+.divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.3);
+}
+
+.hlabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 2px;
+}
+
+.hvalue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.staff-badge {
+  color: #a5d6a7;
+}
+
+.guest-badge {
+  color: #ffe082;
+  font-size: 0.9rem !important;
+}
+
+/* ── Card ── */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 24px;
+  margin: 24px auto;
+  max-width: 960px;
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a3c5e;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e8f0fb;
+}
+
+/* ── Table ── */
+.table-wrap {
+  overflow-x: auto;
+}
+
+.req-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.req-table thead tr {
+  background: #f0f4f8;
+}
+
+.req-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #555;
+  font-weight: 700;
+  border-bottom: 2px solid #dde4ec;
+}
+
+.req-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f0f4f8;
+  color: #333;
+  vertical-align: middle;
+}
+
+.req-table tbody tr:hover {
+  background: #f7fafc;
+}
+
+.req-table .mono {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #1a3c5e;
+}
+
+.req-table .center { text-align: center; }
+
+/* ── Status Badges ── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: #e8edf2;
+  color: #555;
+}
+
+.badge-approved {
+  background: #e6f4ea;
+  color: #2e7d32;
+}
+
+.badge-rejected {
+  background: #fdecea;
+  color: #c62828;
+}
+
+.badge-pending {
+  background: #fff8e1;
+  color: #ef6c00;
+}
+
+/* ── Action Buttons ── */
+.action-cell {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btn-approve,
+.btn-reject {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+
+.btn-approve {
+  background: #2e7d32;
+  color: #fff;
+}
+
+.btn-approve:hover {
+  background: #1b5e20;
+}
+
+.btn-reject {
+  background: #c62828;
+  color: #fff;
+}
+
+.btn-reject:hover {
+  background: #8b0000;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ── Loading ── */
+.loading-wrap {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #2d6a9f;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,147 @@
+<template>
+    <lightning-card title="Tool Request Approval" icon-name="utility:approval">
+
+        <!-- Process Approval Button -->
+        <div class="slds-m-around_medium">
+            <template if:true={showButton}>
+                <lightning-button
+                    variant="brand"
+                    label="Process Approval"
+                    onclick={handleButtonClick}
+                    class="slds-m-bottom_small">
+                </lightning-button>
+            </template>
+
+            <!-- Status Info -->
+            <p class="slds-text-body_small slds-text-color_weak">
+                Current Status: <strong>{currentStatus}</strong>
+            </p>
+        </div>
+
+        <!-- Toast / Alert Message -->
+        <template if:true={alertMessage}>
+            <div class={alertClass} role="alert">
+                <span class="slds-assistive-text">Info</span>
+                <span class="slds-icon_container slds-icon-utility-info slds-m-right_x-small">
+                    <lightning-icon icon-name={alertIcon} size="x-small"></lightning-icon>
+                </span>
+                <p>{alertMessage}</p>
+            </div>
+        </template>
+
+    </lightning-card>
+
+    <!-- Approval Modal -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1"
+            aria-labelledby="modal-heading-01"
+            aria-modal="true"
+            aria-describedby="modal-content-id-1"
+            class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Modal Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                        {modalTitle}
+                    </h2>
+                    <p class="slds-text-body_small slds-m-top_x-small">
+                        Request: <strong>{recordName}</strong> &nbsp;|&nbsp; Status: <strong>{currentStatus}</strong>
+                    </p>
+                </header>
+
+                <!-- Modal Body -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                    <!-- Loading Spinner -->
+                    <template if:true={isLoading}>
+                        <div class="slds-align_absolute-center slds-p-around_large">
+                            <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+                            <p class="slds-m-top_small slds-text-color_weak">Processing your request...</p>
+                        </div>
+                    </template>
+
+                    <!-- Action Buttons (Lab Incharge Stage) -->
+                    <template if:true={showLabInchargeActions}>
+                        <template if:false={isLoading}>
+                            <p class="slds-text-body_regular slds-m-bottom_medium">
+                                Select an action to proceed with this Tool Request:
+                            </p>
+                            <div class="slds-grid slds-gutters slds-grid_align-center">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-button
+                                        variant="success"
+                                        label="Lab Incharge Approve"
+                                        icon-name="utility:check"
+                                        onclick={handleLabApprove}
+                                        class="slds-button_stretch">
+                                    </lightning-button>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-button
+                                        variant="destructive"
+                                        label="Reject"
+                                        icon-name="utility:close"
+                                        onclick={handleLabReject}
+                                        class="slds-button_stretch">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- Action Buttons (HOD Stage) -->
+                    <template if:true={showHODActions}>
+                        <template if:false={isLoading}>
+                            <p class="slds-text-body_regular slds-m-bottom_medium">
+                                HOD: Select an action to finalize this Tool Request:
+                            </p>
+                            <div class="slds-grid slds-gutters slds-grid_align-center">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-button
+                                        variant="success"
+                                        label="HOD Approve"
+                                        icon-name="utility:check"
+                                        onclick={handleHODApprove}
+                                        class="slds-button_stretch">
+                                    </lightning-button>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-button
+                                        variant="destructive"
+                                        label="HOD Reject"
+                                        icon-name="utility:close"
+                                        onclick={handleHODReject}
+                                        class="slds-button_stretch">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- Success / Error Message inside modal -->
+                    <template if:true={modalMessage}>
+                        <div class={modalMessageClass} role="alert" style="margin-top:1rem;">
+                            <lightning-icon icon-name={modalMessageIcon} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            {modalMessage}
+                        </div>
+                    </template>
+
+                </div>
+
+                <!-- Modal Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeModal}></lightning-button>
+                </footer>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

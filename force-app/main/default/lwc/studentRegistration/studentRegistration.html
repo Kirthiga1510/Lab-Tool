@@ -1,0 +1,126 @@
+<template>
+    <div class="page">
+
+        <!-- ══ HEADER ══ -->
+        <div class="title-section">
+            <img src={logo} class="college-logo" alt="College Logo" />
+            <h1>LAB TOOL REQUEST MANAGEMENT SYSTEM</h1>
+            <p class="subtitle">Student Portal</p>
+        </div>
+
+        <!-- ══════════════════════════════════════
+         HOME — Choose Login or Guest
+    ══════════════════════════════════════ -->
+        <template if:true={isHome}>
+            <div class="card center-card">
+                <h2>Welcome</h2>
+                <p class="hint">How would you like to proceed?</p>
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick={handleLoginClick}>
+                        🔐 Login with Credentials
+                    </button>
+                    <button class="btn btn-secondary" onclick={handleGuestClick}>
+                        👤 Continue as Guest
+                    </button>
+                </div>
+            </div>
+        </template>
+
+        <!-- ══════════════════════════════════════
+         LOGIN FORM
+    ══════════════════════════════════════ -->
+        <template if:true={isLogin}>
+            <div class="card">
+                <h2>Staff Login</h2>
+                <div class="field">
+                    <label>Username</label>
+                    <input type="text" placeholder="Enter username" value={loginUsername}
+                        onchange={handleLoginUsername} />
+                </div>
+                <div class="field">
+                    <label>Approval Password</label>
+                    <input type="password" placeholder="Enter approval password" value={loginPassword}
+                        onchange={handleLoginPassword} />
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-outline" onclick={handleBackFromLogin}>← Back</button>
+                    <button class="btn btn-primary" onclick={handleLoginSubmit}>Login</button>
+                </div>
+            </div>
+        </template>
+
+        <!-- ══════════════════════════════════════
+         SEARCH + CREATE STUDENT
+    ══════════════════════════════════════ -->
+        <template if:true={isSearch}>
+
+            <!-- Logged-in badge -->
+            <template if:true={isLoggedIn}>
+                <div class="login-badge">
+                    ✅ Logged in as <strong>{loggedInUser}</strong>
+                </div>
+            </template>
+            <template if:false={isLoggedIn}>
+                <div class="login-badge guest-badge">
+                    👤 Guest Mode
+                </div>
+            </template>
+
+            <!-- Search existing student -->
+            <div class="card">
+                <h2>Search Student</h2>
+                <div class="field search-wrap">
+                    <label>Application Number</label>
+                    <input type="text" placeholder="Type application number..." value={searchKeyword}
+                        oninput={handleSearchInput} autocomplete="off" />
+                    <template if:true={showSuggestions}>
+                        <ul class="suggestions">
+                            <template for:each={suggestions} for:item="s">
+                                <li key={s.Id} data-id={s.Id} data-appnum={s.Application_Number__c} data-name={s.Name}
+                                    onclick={handleSuggestionClick}>
+                                    <span class="sug-appnum">{s.Application_Number__c}</span>
+                                    <span class="sug-name">{s.Name}</span>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Register new student -->
+            <div class="card">
+                <h2>New Student? Register Here</h2>
+                <button class="btn btn-primary full-width" onclick={goToRegister}>
+                    + Register New Student
+                </button>
+            </div>
+
+        </template>
+
+        <!-- ══════════════════════════════════════
+         REGISTER FORM
+    ══════════════════════════════════════ -->
+        <template if:true={isRegister}>
+            <div class="card">
+                <h2>Student Registration</h2>
+                <div class="field">
+                    <label>Student Name</label>
+                    <input type="text" placeholder="Full name" onchange={handleRegName} />
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" placeholder="student@email.com" onchange={handleRegEmail} />
+                </div>
+                <div class="field">
+                    <label>Course</label>
+                    <input type="text" placeholder="e.g. B.E. Computer Science" onchange={handleRegCourse} />
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-outline" onclick={handleBackFromRegister}>← Back</button>
+                    <button class="btn btn-primary" onclick={handleRegisterSubmit}>Register &amp; Proceed</button>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>
